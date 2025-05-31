@@ -11,6 +11,7 @@
     <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="./css/estilo.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="icon" type="image.png" href="img/header-boladecristal.jpeg">
 </head>
 
 <body>
@@ -33,15 +34,13 @@
     <div class="banner">
       <div class="container">
         <section class="carousel-section">
-          <h2>Clássicos em Imagens</h2>
+          <h1>Clássicos Paulistas</h1>
           <div class="carousel">
-            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
             <div class="carousel-images">
               <img src="img/Derby-Paulista.jpeg" alt="Corinthians x Palmeiras">
               <img src="img/confronto-sao-paulo-sp-vs-santos-sp-.jpeg" alt="São Paulo x Santos">
               <img src="img/choque-rei.jpeg" alt="Palmeiras x São Paulo">
             </div>
-            <button class="next" onclick="moveSlide(1)">&#10095;</button>
           </div>
         </section>
       </div>
@@ -104,13 +103,22 @@
 
 <script>
   let currentSlide = 0;
-  const images = document.querySelector('.carousel-images');
-  const totalSlides = images.children.length;
 
-  function moveSlide(direction) {
-    currentSlide += direction;
-    if (currentSlide < 0) currentSlide = totalSlides - 1;
-    if (currentSlide >= totalSlides) currentSlide = 0;
-    images.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
+  window.onload = () => {
+    const images = document.querySelector('.carousel-images');
+    const totalSlides = images.children.length;
+
+    function moveSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide < 0) currentSlide = totalSlides - 1;
+      if (currentSlide >= totalSlides) currentSlide = 0;
+      images.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    window.moveSlide = moveSlide;
+
+    setInterval(() => {
+      moveSlide(1);
+    }, 3000);
+  };
 </script>
