@@ -33,7 +33,7 @@
   </header>
 
   <div class="login">
-    <div class="alerta_erro" id="cardErro" style="display:none; color: #b00020; font-weight: 600; margin-bottom: 12px;">
+    <div class="alerta_erro" id="cardErro" style="display:none; color: green; font-weight: 600; margin-bottom: 12px;">
       <span id="mensagem_erro"></span>
     </div>
 
@@ -98,12 +98,11 @@
             sessionStorage.EMAIL_USUARIO = json.email;
             sessionStorage.NOME_USUARIO = json.nome;
             sessionStorage.ID_USUARIO = json.id;
-            sessionStorage.AQUARIOS = JSON.stringify(json.aquarios);
 
             mostrarErro("Login realizado com sucesso! Redirecionando...", true);
 
             setTimeout(() => {
-              window.location = "./dashboard/cards.html";
+              window.location = "quiz.html";
             }, 1000);
           });
         } else {

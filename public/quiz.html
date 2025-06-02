@@ -769,7 +769,7 @@
     document.getElementById("msgFinal").innerHTML = mensagem
     document.getElementById("msgFinal").className = classeMsg
     
-    fetch("http://localhost:3333/quiz/registrar", {
+    fetch("/quiz/registrar", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

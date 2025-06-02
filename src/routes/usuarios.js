@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var path = require("path")
 
 var usuarioController = require("../controllers/usuarioController");
 
@@ -8,6 +9,7 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+router
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
