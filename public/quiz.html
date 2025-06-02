@@ -1,12 +1,805 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Clássicos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Derby Paulista</title>
+  <style>
+    /*Quiz*/
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /*Header*/
+    header {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 1rem 0;
+      position: absolute;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo h1 {
+      color: white;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: text-shadow 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      text-shadow:
+        0 0 5px rgba(255, 255, 255, 0.7),
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 15px rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    #containerQuiz {
+      background: #ffffff;
+      width: 100%;
+      max-width: 750px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Seção de dificuldade */
+    #controleInicial {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #controleInicial label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #222;
+    }
+
+    #nivelSelecionado {
+      padding: 10px 16px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #btnIniciarQuiz {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      background: #007b33;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #btnIniciarQuiz:hover {
+      background: #005a24;
+    }
+
+    /* Jogo */
+    #jogo {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Questão atual */
+    #infoQuestao {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+    }
+
+    /* Pergunta */
+    #perguntaDaQuestaoAtual {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      color: #007b33;
+    }
+
+    /* Instrução */
+    #infoAlternativas {
+      text-align: center;
+      font-style: italic;
+      color: #555;
+    }
+
+    /* Opções em 2x2 */
+    #opcoes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .option:hover {
+      background: #e0e0e0;
+    }
+
+    input[type="radio"] {
+      transform: scale(1.3);
+      cursor: pointer;
+    }
+
+    /* Botões */
+    #botoes {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    #botoes button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #007b33;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #botoes button:hover:not(:disabled) {
+      background: #005a24;
+      transform: scale(1.05);
+    }
+
+    #botoes button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Pontuação */
+    #pontuacao {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      color: #444;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    #pontuacao span {
+      display: block;
+      margin: 4px 0;
+    }
+
+    #msgFinal {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #007b33;
+    }
+  </style>
 </head>
-<body>
-    
+
+<body onload="onloadEsconder()">
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <h1>DERBY PAULISTA</h1>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <h1>TESTE O SEU CONHECIMENTO SOBRE O MAIOR CLÁSSICO DO BRASIL!</h1>
+  <div id="containerQuiz">
+
+    <div id="controleInicial">
+      <label for="nivelSelecionado"><strong>Escolha a dificuldade:</strong></label>
+      <select id="nivelSelecionado">
+        <option value="facil">Fácil</option>
+        <option value="medio">Médio</option>
+        <option value="dificil">Difícil</option>
+      </select>
+      <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+    </div>
+
+    <div id="jogo">
+
+      <div id="infoQuestao">
+        <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span></span>
+      </div>
+
+      <div id="perguntaDaQuestaoAtual">
+        <span id="spanQuestaoExibida"></span>
+      </div>
+
+      <div id="infoAlternativas">
+        <span><em>Escolha uma opção dentre as abaixo:</em></span>
+      </div>
+
+      <div id="opcoes" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <label class="option">
+          <input type="radio" id="primeiraOpcao" name="option" value="alternativaA" />
+          <span id="labelOpcaoUm"></span>
+        </label>
+        <label class="option">
+          <input type="radio" id="segundaOpcao" name="option" value="alternativaB" />
+          <span id="labelOpcaoDois"></span>
+        </label>
+        <label class="option">
+          <input type="radio" id="terceiraOpcao" name="option" value="alternativaC" />
+          <span id="labelOpcaoTres"></span>
+        </label>
+        <label class="option">
+          <input type="radio" id="quartaOpcao" name="option" value="alternativaD" />
+          <span id="labelOpcaoQuatro"></span>
+        </label>
+      </div>
+
+      <div id="botoes">
+        <button onclick="submeter()" id="btnSubmeter" disabled>Submeter resposta</button>
+        <button onclick="avancar()" id="btnProx" disabled>Avançar</button>
+        <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+      </div>
+    </div>
+
+    <div id="pontuacao">
+      <div id="pontuacaoDuranteJogo">
+        <span>Acertos: <span id="spanCertas">0</span></span>
+        <span>Erros: <span id="spanErradas">0</span></span>
+      </div>
+      <div id="pontuacaoFinalJogo">
+        <span>Pontuação Final: <span id="spanPontuacaoFinal">***</span></span>
+        <span id="msgFinal">***</span>
+      </div>
+    </div>
+
+  </div>
 </body>
+
+
+<script>
+  const bancoQuestoes = [
+    // Fácil
+    {
+      nivel: "facil",
+      pergunta: "Qual clube é conhecido como 'Timão'?",
+      alternativaA: "Palmeiras",
+      alternativaB: "São Paulo",
+      alternativaC: "Corinthians",
+      alternativaD: "Santos",
+      alternativaCorreta: "alternativaC"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "Qual clube é conhecido como 'Verdão'?",
+      "alternativaA": "Palmeiras",
+      "alternativaB": "Corinthians",
+      "alternativaC": "Flamengo",
+      "alternativaD": "São Paulo",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "Qual é a cor principal da camisa do Corinthians?",
+      "alternativaA": "Verde",
+      "alternativaB": "Preto",
+      "alternativaC": "Branco",
+      "alternativaD": "Vermelho",
+      "alternativaCorreta": "alternativaC"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "Qual a cor principal da camisa do Palmeiras?",
+      "alternativaA": "Branco",
+      "alternativaB": "Verde",
+      "alternativaC": "Azul",
+      "alternativaD": "Preto",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "Qual estádio pertence ao Corinthians?",
+      "alternativaA": "Allianz Parque",
+      "alternativaB": "Morumbi",
+      "alternativaC": "Neo Química Arena",
+      "alternativaD": "Pacaembu",
+      "alternativaCorreta": "alternativaC"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "Qual estádio pertence ao Palmeiras?",
+      "alternativaA": "Neo Química Arena",
+      "alternativaB": "Morumbi",
+      "alternativaC": "Allianz Parque",
+      "alternativaD": "Arena da Baixada",
+      "alternativaCorreta": "alternativaC"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "Qual clube tem um porco como mascote?",
+      "alternativaA": "Corinthians",
+      "alternativaB": "Palmeiras",
+      "alternativaC": "São Paulo",
+      "alternativaD": "Santos",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "Qual clube tem um mosqueteiro como mascote?",
+      "alternativaA": "Santos",
+      "alternativaB": "Corinthians",
+      "alternativaC": "Palmeiras",
+      "alternativaD": "Fluminense",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "O apelido 'Alviverde' se refere a qual clube?",
+      "alternativaA": "Palmeiras",
+      "alternativaB": "Corinthians",
+      "alternativaC": "Grêmio",
+      "alternativaD": "Bahia",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "facil",
+      "pergunta": "Quantos clubes participam do Dérbi Paulista?",
+      "alternativaA": "2",
+      "alternativaB": "3",
+      "alternativaC": "4",
+      "alternativaD": "1",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Qual foi o placar do Dérbi Paulista na final do Paulistão de 2018?",
+      "alternativaA": "1x0 Corinthians",
+      "alternativaB": "1x0 Palmeiras",
+      "alternativaC": "2x1 Corinthians",
+      "alternativaD": "0x0 (decidido nos pênaltis)",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Qual jogador marcou o gol do título paulista do Corinthians em 2018?",
+      "alternativaA": "Romero",
+      "alternativaB": "Rodriguinho",
+      "alternativaC": "Jadson",
+      "alternativaD": "Fagner",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Em que ano o Palmeiras venceu a Libertadores pela primeira vez?",
+      "alternativaA": "1993",
+      "alternativaB": "1999",
+      "alternativaC": "2000",
+      "alternativaD": "2020",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Qual clube tem mais títulos brasileiros até 2024?",
+      "alternativaA": "Palmeiras",
+      "alternativaB": "Corinthians",
+      "alternativaC": "Grêmio",
+      "alternativaD": "São Paulo",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Qual clube venceu mais dérbis paulistas até 2024?",
+      "alternativaA": "Palmeiras",
+      "alternativaB": "Corinthians",
+      "alternativaC": "Empate",
+      "alternativaD": "São Paulo",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Em que estádio foi disputado o primeiro dérbi da história?",
+      "alternativaA": "Pacaembu",
+      "alternativaB": "Chácara da Floresta",
+      "alternativaC": "Parque Antártica",
+      "alternativaD": "Morumbi",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Quem era o técnico do Palmeiras na conquista da Copa do Brasil de 2020?",
+      "alternativaA": "Cuca",
+      "alternativaB": "Luxemburgo",
+      "alternativaC": "Abel Ferreira",
+      "alternativaD": "Felipão",
+      "alternativaCorreta": "alternativaC"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Qual clube foi campeão paulista em 2020?",
+      "alternativaA": "Palmeiras",
+      "alternativaB": "Corinthians",
+      "alternativaC": "Santos",
+      "alternativaD": "São Paulo",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Quem marcou o gol de empate no Dérbi de 2022 no Allianz Parque?",
+      "alternativaA": "Róger Guedes",
+      "alternativaB": "Dudu",
+      "alternativaC": "Mayke",
+      "alternativaD": "Raphael Veiga",
+      "alternativaCorreta": "alternativaD"
+    },
+    {
+      "nivel": "medio",
+      "pergunta": "Qual jogador ficou famoso por fazer gols em vários dérbis pelo Corinthians nos anos 90?",
+      "alternativaA": "Viola",
+      "alternativaB": "Marcelinho Carioca",
+      "alternativaC": "Ronaldo",
+      "alternativaD": "Danilo",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Qual o maior placar da história do Dérbi Paulista?",
+      "alternativaA": "7x1 Palmeiras",
+      "alternativaB": "8x0 Corinthians",
+      "alternativaC": "8x0 Palmeiras",
+      "alternativaD": "6x1 Corinthians",
+      "alternativaCorreta": "alternativaC"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Em qual ano Palmeiras venceu o Corinthians por 8x0?",
+      "alternativaA": "1932",
+      "alternativaB": "1933",
+      "alternativaC": "1934",
+      "alternativaD": "1935",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Qual jogador fez um gol olímpico no Dérbi em 2015?",
+      "alternativaA": "Petros",
+      "alternativaB": "Robinho (Palmeiras)",
+      "alternativaC": "Marcos Assunção",
+      "alternativaD": "Romarinho",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Quem marcou o único gol da vitória corintiana na final do Paulistão 1995 contra o Palmeiras?",
+      "alternativaA": "Marcelinho Carioca",
+      "alternativaB": "Tupãzinho",
+      "alternativaC": "Elivélton",
+      "alternativaD": "Viola",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Quantos gols Romarinho fez em dérbis contra o Palmeiras?",
+      "alternativaA": "2",
+      "alternativaB": "3",
+      "alternativaC": "4",
+      "alternativaD": "5",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Qual técnico comandava o Palmeiras no título paulista de 1996?",
+      "alternativaA": "Felipão",
+      "alternativaB": "Vanderlei Luxemburgo",
+      "alternativaC": "Levir Culpi",
+      "alternativaD": "Antônio Lopes",
+      "alternativaCorreta": "alternativaB"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Quantas vezes Corinthians e Palmeiras se enfrentaram em finais estaduais até 2024?",
+      "alternativaA": "6",
+      "alternativaB": "8",
+      "alternativaC": "5",
+      "alternativaD": "7",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Qual o nome do jogador que foi expulso em dérbi após dar uma voadora em 2020?",
+      "alternativaA": "Felipe Melo",
+      "alternativaB": "Fagner",
+      "alternativaC": "Danilo Avelar",
+      "alternativaD": "Rony",
+      "alternativaCorreta": "alternativaA"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Quem marcou o gol da vitória do Palmeiras sobre o Corinthians no primeiro clássico do Allianz Parque?",
+      "alternativaA": "Dudu",
+      "alternativaB": "Cristaldo",
+      "alternativaC": "Mouche",
+      "alternativaD": "Leandro Pereira",
+      "alternativaCorreta": "alternativaC"
+    },
+    {
+      "nivel": "dificil",
+      "pergunta": "Quantos dérbis foram disputados no Pacaembu até 2023?",
+      "alternativaA": "124",
+      "alternativaB": "87",
+      "alternativaC": "102",
+      "alternativaD": "115",
+      "alternativaCorreta": "alternativaA"
+    }
+
+  ];
+
+  let listaDeQuestoes = []
+  let numeroDaQuestaoAtual = 0
+  let pontuacaoFinal = 0
+  let certas = 0
+  let erradas = 0
+  const quantidadeDeQuestoes = 10
+
+  function onloadEsconder() {
+    document.getElementById('pontuacao').style.display = "none"
+    document.getElementById('jogo').style.display = "none"
+  }
+
+  function iniciarQuiz() {
+    const nivel = document.getElementById("nivelSelecionado").value
+
+    // Filtra as questões pelo nível selecionado e pega os primeiros 10 (ou menos, caso não tenha)
+    listaDeQuestoes = bancoQuestoes.filter(q => q.nivel === nivel).slice(0, quantidadeDeQuestoes)
+
+    if (listaDeQuestoes.length === 0) {
+      alert("Não há perguntas disponíveis para o nível selecionado.")
+      return
+    }
+
+    pontuacaoFinal = 0
+    certas = 0
+    erradas = 0
+    numeroDaQuestaoAtual = 0
+
+    document.getElementById('pontuacao').style.display = "flex"
+    document.getElementById('jogo').style.display = "flex"
+    document.getElementById('btnIniciarQuiz').style.display = "none"
+    document.getElementById('nivelSelecionado').disabled = true
+
+    document.getElementById('spanCertas').innerHTML = 0
+    document.getElementById('spanErradas').innerHTML = 0
+    document.getElementById('spanPontuacaoFinal').innerHTML = "***"
+    document.getElementById('msgFinal').innerHTML = "***"
+    document.getElementById('msgFinal').className = ""
+
+    document.getElementById('qtdQuestoes').innerHTML = listaDeQuestoes.length
+
+    preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+
+    document.getElementById('btnSubmeter').disabled = false
+    document.getElementById('btnProx').disabled = true
+    document.getElementById('btnTentarNovamente').disabled = true
+  }
+
+  function preencherHTMLcomQuestaoAtual(index) {
+    habilitarAlternativas(true)
+    limparCoresBackgroundOpcoes()
+    desmarcarRadioButtons()
+
+    const questaoAtual = listaDeQuestoes[index]
+    numeroDaQuestaoAtual = index
+    document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = index + 1
+    document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta
+    document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA
+    document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB
+    document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC
+    document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD
+  }
+
+  function habilitarAlternativas(valor) {
+    document.getElementById("primeiraOpcao").disabled = !valor
+    document.getElementById("segundaOpcao").disabled = !valor
+    document.getElementById("terceiraOpcao").disabled = !valor
+    document.getElementById("quartaOpcao").disabled = !valor
+  }
+
+  function limparCoresBackgroundOpcoes() {
+    document.getElementById("labelOpcaoUm").className = ""
+    document.getElementById("labelOpcaoDois").className = ""
+    document.getElementById("labelOpcaoTres").className = ""
+    document.getElementById("labelOpcaoQuatro").className = ""
+  }
+
+  function desmarcarRadioButtons() {
+    document.getElementById("primeiraOpcao").checked = false
+    document.getElementById("segundaOpcao").checked = false
+    document.getElementById("terceiraOpcao").checked = false
+    document.getElementById("quartaOpcao").checked = false
+  }
+
+  function submeter() {
+    const radios = document.getElementsByName("option")
+    let respostaSelecionada = null
+    for (const radio of radios) {
+      if (radio.checked) {
+        respostaSelecionada = radio.value
+        break
+      }
+    }
+
+    if (!respostaSelecionada) {
+      alert("Por favor, selecione uma alternativa.")
+      return
+    }
+
+    habilitarAlternativas(false)
+    document.getElementById('btnSubmeter').disabled = true
+    document.getElementById('btnProx').disabled = false
+
+    const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual]
+
+    if (respostaSelecionada === questaoAtual.alternativaCorreta) {
+      certas++
+      pontuacaoFinal += 10
+      document.getElementById("spanCertas").innerHTML = certas
+      marcarCorOpcao(questaoAtual.alternativaCorreta, true)
+    } else {
+      erradas++
+      document.getElementById("spanErradas").innerHTML = erradas
+      marcarCorOpcao(questaoAtual.alternativaCorreta, true)
+      marcarCorOpcao(respostaSelecionada, false)
+    }
+  }
+
+  function marcarCorOpcao(alternativa, correta) {
+    let labelId = ""
+    switch (alternativa) {
+      case "alternativaA": labelId = "labelOpcaoUm"; break
+      case "alternativaB": labelId = "labelOpcaoDois"; break
+      case "alternativaC": labelId = "labelOpcaoTres"; break
+      case "alternativaD": labelId = "labelOpcaoQuatro"; break
+    }
+    if (labelId) {
+      document.getElementById(labelId).className = correta ? "text-success-with-bg" : "text-danger-with-bg"
+    }
+  }
+
+  function avancar() {
+    if (numeroDaQuestaoAtual < listaDeQuestoes.length - 1) {
+      numeroDaQuestaoAtual++
+      preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+
+      document.getElementById('btnSubmeter').disabled = false
+      document.getElementById('btnProx').disabled = true
+      document.getElementById('btnTentarNovamente').disabled = true
+
+      document.getElementById('msgFinal').innerHTML = "***"
+      document.getElementById('msgFinal').className = ""
+    } else {
+      finalizarQuiz()
+    }
+  }
+
+  function finalizarQuiz() {
+    document.getElementById('btnSubmeter').disabled = true
+    document.getElementById('btnProx').disabled = true
+    document.getElementById('btnTentarNovamente').disabled = false
+
+    document.getElementById("spanPontuacaoFinal").innerHTML = pontuacaoFinal
+
+    let mensagem = ""
+    let classeMsg = ""
+
+    if (pontuacaoFinal >= 80) {
+      mensagem = "Parabéns! Você é um expert no Dérbi Paulista!"
+      classeMsg = "text-success-with-bg"
+    } else if (pontuacaoFinal >= 50) {
+      mensagem = "Bom trabalho! Continue estudando para melhorar."
+      classeMsg = "text-warning-with-bg"
+    } else {
+      mensagem = "Você pode melhorar. Tente novamente!"
+      classeMsg = "text-danger-with-bg"
+    }
+
+    document.getElementById("msgFinal").innerHTML = mensagem
+    document.getElementById("msgFinal").className = classeMsg
+    
+    fetch("http://localhost:3333/quiz/registrar", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+        acertos: certas,
+        erros: erradas,
+        pontuacao: pontuacaoFinal,
+        nivel: document.getElementById("nivelSelecionado").value
+    })
+}).then(res => {
+    if (!res.ok) throw new Error("Erro ao salvar resultado");
+});
+  }
+
+  function tentarNovamente() {
+    document.getElementById('btnIniciarQuiz').style.display = "inline-block"
+    document.getElementById('nivelSelecionado').disabled = false
+    document.getElementById('pontuacao').style.display = "none"
+    document.getElementById('jogo').style.display = "none"
+    document.getElementById('btnTentarNovamente').disabled = true
+  }
+
+  // Ativa/desativa botão "Submeter" conforme seleção
+  document.querySelectorAll('input[name="option"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.getElementById('btnSubmeter').disabled = false
+    })
+  })
+
+  module.exports = bancoQuestoes;
+</script>
+</body>
+
 </html>

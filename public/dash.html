@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Quiz Derby Paulista</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f2f5;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .dashboard {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .stat:last-child {
+      border-bottom: none;
+    }
+    .stat-label {
+      font-weight: 600;
+    }
+    .loading {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+    }
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dashboard do Quiz Derby Paulista</h1>
+
+  <div class="dashboard">
+    <div id="loading" class="loading">Carregando estatísticas...</div>
+    <div id="stats" style="display:none;">
+      <div class="stat">
+        <div class="stat-label">Total de Questões Respondidas:</div>
+        <div id="totalQuestoes">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Acertos:</div>
+        <div id="acertos">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Erros:</div>
+        <div id="erros">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Porcentagem de Acertos:</div>
+        <div id="percentAcertos">0%</div>
+      </div>
+    </div>
+    <div id="error" class="error" style="display:none;"></div>
+  </div>
+
+  <script>
+    async function carregarEstatisticas() {
+      try {
+        const response = await fetch('/estatisticas');
+        if (!response.ok) {
+          throw new Error('Erro ao carregar estatísticas');
+        }
+        const data = await response.json();
+
+        // Exemplo do que pode vir no JSON: { totalRespondidas: 100, acertos: 70, erros: 30 }
+        const total = data.totalRespondidas || 0;
+        const acertos = data.acertos || 0;
+        const erros = data.erros || 0;
+        const percent = total ? ((acertos / total) * 100).toFixed(2) : 0;
+
+        document.getElementById('totalQuestoes').textContent = total;
+        document.getElementById('acertos').textContent = acertos;
+        document.getElementById('erros').textContent = erros;
+        document.getElementById('percentAcertos').textContent = percent + '%';
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('stats').style.display = 'block';
+      } catch (err) {
+        document.getElementById('loading').style.display = 'none';
+        const errorDiv = document.getElementById('error');
+        errorDiv.textContent = err.message;
+        errorDiv.style.display = 'block';
+      }
+    }
+
+    window.onload = carregarEstatisticas;
+  </script>
+
+</body>
+</html>

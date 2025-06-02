@@ -1,11 +1,8 @@
-var express = require("express")
-var router = express.Router()
+const express = require('express');
+const router = express.Router();
+const quizController = require('../controllers/quizController');
 
-var quizClassicos = require("../controllers/quizClassicoController")
-
-router.get(`/listar/:idUsuario`,
-quizClassicosController.listar)
-router.post("/registrar",
-quizClassicosController.Cadastrar)
+router.post('/registrar', quizController.registrarResultado);
+router.get('/estatisticas', quizController.obterEstatisticas);
 
 module.exports = router;

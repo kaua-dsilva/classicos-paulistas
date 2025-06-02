@@ -273,29 +273,38 @@ h1 {
 .carousel-images {
   display: flex;
   transition: transform 0.5s ease;
+  height: 100%;
 }
 
 .carousel-images img {
   min-width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover;
 }
 
-/*Cards - Times*/
 .card-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  width: 90%;
-  max-width: 1200px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+  max-width: 1000px;
   margin: 40px auto;
 }
 
 .club-card {
   background: white;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 30px;
   overflow: hidden;
   text-align: center;
   display: flex;
@@ -307,18 +316,23 @@ h1 {
 .club-card img {
   width: 100%;
   height: auto;
+  max-height: 180px;
+  object-fit: contain;
 }
 
 .club-card h2 {
-  margin: 10px 0;
+  margin: 15px 0;
+  font-size: 24px;
   color: #333;
 }
 
 .club-card p {
-  padding: 0 10px 10px;
+  padding: 0 10px 15px;
   color: #555;
-  font-size: 14px;
+  font-size: 16px;
 }
+
+
 
 .club-link {
   text-decoration: none;
@@ -337,6 +351,7 @@ h1 {
   border: 4px solid transparent;
   transition: border 0.3s ease, transform 0.3s ease;
   border-radius: 10px;
+  padding: 65px;
 }
 
 .club-link[href*="corinthians"] .club-card:hover {
@@ -346,16 +361,6 @@ h1 {
 
 .club-link[href*="palmeiras"] .club-card:hover {
   border-color: #1c8c3a;
-  transform: scale(1.05);
-}
-
-.club-link[href*="saopaulo"] .club-card:hover {
-  border-color: #cc0000;
-  transform: scale(1.05);
-}
-
-.club-link[href*="santos"] .club-card:hover {
-  border-color: #333;
   transform: scale(1.05);
 }
 
@@ -562,3 +567,4 @@ footer {
   width: 50px;
   height: 50px;
 }
+

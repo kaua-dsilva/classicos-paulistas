@@ -10,14 +10,14 @@ CREATE TABLE usuario (
 	senha VARCHAR(50)
 );
 
-CREATE TABLE quiz (
-	idQuiz int primary key auto_increment unique,
-	horario timestamp default current_timestamp,
-	fk_usuario int,
-	acertos int,
-	erros int
-	foreign key fk_usuario references usuario(id)
-)
 
+CREATE TABLE resultado_quiz (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    acertos INT NOT NULL,
+    erros INT NOT NULL,
+    pontuacao INT NOT NULL,
+    nivel VARCHAR(10) NOT NULL,
+    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 

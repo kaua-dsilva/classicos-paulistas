@@ -6,119 +6,161 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Clássicos Paulistas</title>
+    <title>Derby Paulista | Início</title>
 
     <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="./css/estilo.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="icon" type="image.png" href="img/header-boladecristal.jpeg">
+    
+  <style>
+    /* Ajustes mínimos para o carrossel funcionar */
+    .carousel {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-images img {
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .header-container,
+    .footer-container,
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .club-card {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .club-card img {
+      width: 100px;
+      height: auto;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+  </style>
 </head>
 
 <body>
   <header>
     <div class="header-container">
       <div class="logo">
-        <h1>Clássico Paulistas</h1>
+        <h1>DERBY PAULISTA</h1>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <h1>DERBY PAULISTA</h1>
       </div>
       <nav>
         <ul class="nav-links">
           <li><a href="index.html">Início</a></li>
           <li><a href="#">História</a></li>
           <li><a href="#">Confrontos</a></li>
-        <li><a href="cadastro.html">Cadastro</a></li>
-        <li><a href="login.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="login.html">Login</a></li>
         </ul>
       </nav>
     </div>
   </header>
-    <div class="banner">
-      <div class="container">
-        <section class="carousel-section">
-          <h1>Clássicos Paulistas</h1>
-          <div class="carousel">
-            <div class="carousel-images">
-              <img src="img/Derby-Paulista.jpeg" alt="Corinthians x Palmeiras">
-              <img src="img/confronto-sao-paulo-sp-vs-santos-sp-.jpeg" alt="São Paulo x Santos">
-              <img src="img/choque-rei.jpeg" alt="Palmeiras x São Paulo">
-            </div>
+
+  <div class="banner">
+    <div class="container">
+      <section class="carousel-section">
+        <h1>O Derby Paulista em imagens</h1>
+        <div class="carousel">
+          <div class="carousel-images">
+            <img src="img/derby-paulista-capa.png" alt="" />
+            <img src="img/corinthians palmeiras derby paulista.jpg" alt="" />
+            <img src="img/1999-1024x666.jpg" alt="" />
+            <img src="img/Derby-Paulista.jpeg" alt="" />
+            <img src="img/derby-palmeiras-corinthians-scaled-aspect-ratio-512-320.jpg" alt="" />
           </div>
-        </section>
-      </div>
-    </div><br>
-  
-    <div class="social">
-      <div class="container">
-        <div class="card-container">
-          <!-- Corinthians -->
-          <a href="times/corinthians.html" class="club-link">
-            <div class="club-card">
-              <img src="img/corinthians.png" alt="Corinthians">
-              <h2>Corinthians</h2>
-              <p>O MEU CORAÇÃO É ALVINEGRO!</p>
-            </div>
-          </a>
-    
-          <!-- Palmeiras -->
-          <a href="times/palmeiras.html" class="club-link">
-            <div class="club-card">
-              <img src="img/palmeiras.png" alt="Palmeiras">
-              <h2>Palmeiras</h2>
-              <p>O MEU CORAÇÃO É ALVIVERDE!</p>
-            </div>
-          </a>
-    
-          <!-- São Paulo FC -->
-          <a href="times/saopaulo.html" class="club-link">
-            <div class="club-card">
-              <img src="img/sao-paulo.png" alt="São Paulo FC">
-              <h2>São Paulo FC</h2>
-              <p>O MEU CORAÇÃO É TRICOLOR!</p>
-            </div>
-          </a>
-    
-          <!-- Santos -->
-          <a href="times/santos.html" class="club-link">
-            <div class="club-card">
-              <img src="img/santos.png" alt="Santos">
-              <h2>Santos</h2>
-              <p>O MEU CORAÇÃO É ALVINEGRO-PRAIANO!</p>
-            </div>
-          </a>
         </div>
+      </section>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="social">
+    <div class="container">
+      <div class="card-container">
+        <!-- Corinthians -->
+        <a href="times/corinthians.html" class="club-link">
+          <div class="club-card">
+            <img src="img/corinthians.png" alt="Corinthians" />
+            <h2>Corinthians</h2>
+            <p>O MEU CORAÇÃO É ALVINEGRO!</p>
+          </div>
+        </a>
+
+        <!-- Palmeiras -->
+        <a href="times/palmeiras.html" class="club-link">
+          <div class="club-card">
+            <img src="img/palmeiras.png" alt="Palmeiras" />
+            <h2>Palmeiras</h2>
+            <p>O MEU CORAÇÃO É ALVIVERDE!</p>
+          </div>
+        </a>
       </div>
     </div>
-    
-  
-    <footer>
-      <div class="footer-container">
-        <ul class="social-links">
-          <li><a href="https://github.com/seuusuario" target="_blank">GitHub</a></li>
-          <li><a href="#">Saiba mais sobre o projeto Clássicos Paulistas</a></li>
-        </ul>
-      </div>
-    </footer>
-  </body>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <ul class="social-links">
+        <li><a href="https://github.com/seuusuario" target="_blank">GitHub</a></li>
+        <li><a href="#">Saiba mais sobre o projeto Clássicos Paulistas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+
+    window.onload = () => {
+      const images = document.querySelector('.carousel-images');
+      const totalSlides = images.children.length;
+
+      function moveSlide(direction) {
+        currentSlide += direction;
+        if (currentSlide < 0) currentSlide = totalSlides - 1;
+        if (currentSlide >= totalSlides) currentSlide = 0;
+        images.style.transform = `translateX(-${currentSlide * 100}%)`;
+      }
+
+      setInterval(() => {
+        moveSlide(1);
+      }, 3000);
+    };
+  </script>
+</body>
 
 </html>
 
-<script>
-  let currentSlide = 0;
-
-  window.onload = () => {
-    const images = document.querySelector('.carousel-images');
-    const totalSlides = images.children.length;
-
-    function moveSlide(direction) {
-      currentSlide += direction;
-      if (currentSlide < 0) currentSlide = totalSlides - 1;
-      if (currentSlide >= totalSlides) currentSlide = 0;
-      images.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-
-    window.moveSlide = moveSlide;
-
-    setInterval(() => {
-      moveSlide(1);
-    }, 3000);
-  };
-</script>
