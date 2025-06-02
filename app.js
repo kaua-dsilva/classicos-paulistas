@@ -17,7 +17,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var quizRouter = require('./routes/quizRouter');
+var quizRouter = require('./routes/quiz');
 
 app.use(cors());
 app.use(express.json());
